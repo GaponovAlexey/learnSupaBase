@@ -5,10 +5,21 @@ import { useRouter } from "next/router"
 import { supabase } from "supabase"
 
 export const LoginApp = () => {
-  const redirect = useRouter()
+  const r = useRouter()
+  const { a, b } = r.query
+  console.log("query", a,b )
+  
   const [dataUser, setUser] = useState({})
-  supabase.auth.getUser("").then((e: any) => setUser(e.data.user))
-  console.log("user", dataUser)
+  console.log("dataUser",dataUser)
+  
+  supabase.auth.onAuthStateChange(async (event) => {
+    setUser(event)
+    if (event !== "SIGNED_OUT") {
+      // r.push("/success");
+		} else {
+			// r.push("/");
+		}
+	});
 
 
   return (
@@ -19,6 +30,7 @@ export const LoginApp = () => {
           appearance={{ theme: ThemeSupa }}
           theme="dark"
           providers={["discord", "apple", "google"]}
+          redirectTo={"/success"}
         />
       </div>
     </div>
