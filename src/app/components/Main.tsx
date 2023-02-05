@@ -1,26 +1,15 @@
-"use client"; // this is a client component
+
 
 import Link from "next/link"
-import { useRouter } from "next/router";
-import { useState } from "react"
+import { supabase } from "supabase"
 import styles from "./page.module.css"
 
-
-
-
-export const Main = (props: any) => {
-  const [isLogin, setIsLogin] = useState(true)
-  console.log("props",props)
-  
+export default function MainAPP(props: any) {
   
   return (
     <div>
       <main className={styles.main}>
-        {isLogin ? (
-          <Link href={"/registration/login"}>Login</Link>
-        ) : (
-          <Link href={"/registration/LogOut"}>LogOut</Link>
-        )}
+        <Link href={"/registration/login"}>Login</Link>
         <p>home put down</p>
       </main>
     </div>

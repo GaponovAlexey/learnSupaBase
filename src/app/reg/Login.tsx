@@ -3,42 +3,29 @@ import { useEffect, useState } from "react"
 import { Auth, ThemeSupa } from "@supabase/auth-ui-react"
 import { useRouter } from "next/router"
 import { supabase } from "supabase"
+import { useSession } from "@supabase/auth-helpers-react"
+
+
 
 export const LoginApp = () => {
-  const r = useRouter()
-  const { a, b } = r.query
-  console.log("query", a, b)
-
   const [dataUser, setUser] = useState({})
-  console.log("dataUser", dataUser)
-
-  supabase.auth.onAuthStateChange(async (event) => {
-    setUser(event)
-    if (event !== "SIGNED_OUT") {
-      // r.push("/success");
-    } else {
-      // r.push("/");
-    }
-  })
-
-  const res = (
-    <Auth
-      supabaseClient={supabase}
-      appearance={{ theme: ThemeSupa }}
-      theme="dark"
-      onlyThirdPartyProviders={true}
-      providers={["discord", "apple", "google"]}
-      redirectTo={"/success"}
-    />
-  )
-    useEffect(() => {
-      console.log("res",res)
-      
-    },[])
-    
+  const rou = useRouter()
+  console.log(rou.pathname)
+  
   return (
     <div>
-      <div>{res}</div>
+      <Auth
+        supabaseClient={supabase}
+        appearance={{ theme: ThemeSupa }}
+        theme="dark"
+        providers={["discord", "apple", "google"]}
+        redirectTo="/success"
+        // magicLink={e =>setUser(e)}
+        // onlyThirdPartyProviders={e =>setUser(e)}
+        // showLinks
+        // view={}
+        // socialLayout={}
+      />
     </div>
   )
 }
