@@ -8,8 +8,9 @@ import styles from "./page.module.css"
 
 
 
-export const Main = () => {
+export const Main = (props: any) => {
   const [isLogin, setIsLogin] = useState(true)
+  console.log("props",props)
   
   
   return (
